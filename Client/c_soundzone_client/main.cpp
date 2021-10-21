@@ -1,6 +1,6 @@
 #include <iostream>
 #include "c_project_test/c_project_test.h"
-#include "src/test_src.h"
+#include "test_src.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;

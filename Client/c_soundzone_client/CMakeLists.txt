@@ -19,6 +19,7 @@ add_executable(c_soundzone_client main.cpp
         deps/tests/c_project_test/c_project_test.h deps/tests/c_project_test/c_project_test.cpp)
 
 
+
 # -----Add wiringPi-----
 add_library(wiringPi STATIC IMPORTED)
 set_target_properties(wiringPi PROPERTIES IMPORTED_LOCATION /usr/lib/libwiringPi.so)
