@@ -13,11 +13,6 @@ include_directories(src/)
 include_directories(deps/)
 include_directories(deps/tests/)
 
-# With this, files for add_executable under deps, only has to be added under deps/CMakeLists.txt
-#add_subdirectory(deps/)
-# added under src/CMakeLists.txt
-#add_subdirectory(src/)
-
 # Add executable target with source files listed in SOURCE_FILES variable
 add_executable(c_soundzone_client main.cpp
         src/test_src.h src/test_src.cpp
