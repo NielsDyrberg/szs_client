@@ -12,6 +12,8 @@ configure_file(soundZoneClientConfig.h.in soundZoneClientConfig.h)
 include_directories(src/)
 include_directories(deps/)
 include_directories(deps/tests/)
+include_directories(deps/tests/c_project_test/)
+include_directories(deps/library/)
 
 # Add executable target with source files listed in SOURCE_FILES variable
 add_executable(c_soundzone_client main.cpp
@@ -21,10 +23,10 @@ add_executable(c_soundzone_client main.cpp
 
 
 # -----Add wiringPi-----
-add_library(wiringPi STATIC IMPORTED)
-set_target_properties(wiringPi PROPERTIES IMPORTED_LOCATION /usr/lib/libwiringPi.so)
-set_target_properties(wiringPi PROPERTIES INTERFACE_INCLUDE_DIRECTORIES /usr/include)
-target_link_libraries(c_soundzone_client wiringPi)
+#add_library(wiringPi STATIC IMPORTED)
+#set_target_properties(wiringPi PROPERTIES IMPORTED_LOCATION /usr/lib/libwiringPi.so)
+#set_target_properties(wiringPi PROPERTIES INTERFACE_INCLUDE_DIRECTORIES /usr/include)
+#target_link_libraries(c_soundzone_client wiringPi)
 # For at better import of wiringPi
 # https://discourse.cmake.org/t/how-to-statically-link-external-library-by-target-link-libraries/1718/2
 # Locate libraries and headers
