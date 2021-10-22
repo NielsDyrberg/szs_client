@@ -4,13 +4,13 @@
 #ifndef C_SOUNDZONE_CLIENT_ALSADRIVER_H
 #define C_SOUNDZONE_CLIENT_ALSADRIVER_H
 
-/*
+
 class alsadriver {
 
 public:
-
+    void displayformat();
 };
-*/
-//void displayformat();
+
+
 
 #endif //C_SOUNDZONE_CLIENT_ALSADRIVER_H

@@ -29,8 +29,8 @@ add_executable(c_soundzone_client main.cpp
 
 LINK_DIRECTORIES(deps/library/alsa)
 LINK_DIRECTORIES(/usr/include/alsa)
-target_include_directories(c_soundzone_client PRIVATE include /usr/include/alsa)
-target_link_libraries(c_soundzone_client alsa/asoundlib.h)
+#target_include_directories(c_soundzone_client PRIVATE include /usr/include/alsa)
+#target_link_libraries(c_soundzone_client alsa/asoundlib.h)
 
 
 
