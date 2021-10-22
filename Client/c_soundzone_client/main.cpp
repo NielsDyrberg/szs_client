@@ -4,7 +4,7 @@
 #include <bcm2835.h>
 #include <alsadriver.h>
 //#include "alsadriver.h"
-#include "alsa/asoundlib.h"
+//#include "asoundlib.h"
 
 
 

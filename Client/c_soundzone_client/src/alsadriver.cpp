@@ -3,7 +3,7 @@
 //
 // libasound2-dev
 
-#include "alsa/asoundlib.h"
+#include "asoundlib.h"
 #include "alsadriver.h"
 
 void alsadriver::displayformat() {
