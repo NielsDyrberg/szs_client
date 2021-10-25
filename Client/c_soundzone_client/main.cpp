@@ -1,7 +1,7 @@
 #include <iostream>
-#include "c_project_test.h"
+#include "tests/c_project_test/include/c_project_test.h"
 #include "test_src.h"
-#include <bcm2835.h>
+#include "bcm2835.h"
 #include <alsadriver.h>
 //#include "alsadriver.h"
 //#include "asoundlib.h"
