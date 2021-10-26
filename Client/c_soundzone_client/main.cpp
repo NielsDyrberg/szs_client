@@ -4,18 +4,14 @@
 #include <bcm2835.h>
 #include <alsadriver.h>
 //#include "alsadriver.h"
-#include "alsa/asoundlib.h"
-
+//#include "alsa/asoundlib.h"
+#include <time.h>
 
 
 alsadriver dacdriver;
 
 int main() {
-    dacdriver.displayformat();
-    //displayformat();
-    //std::cout << "Hello, World!" << std::endl;
-    //std::cout << test_projectLink() << std::endl;
-    //testSrcHello();
-
+    dacdriver.startstreaming(8000, 1, "SND_PCM_FORMAT_S16_BE");
+    dacdriver.checksetup();
     return 0;
 }
