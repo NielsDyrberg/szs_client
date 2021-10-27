@@ -1,10 +1,16 @@
 #include <iostream>
-#include "c_project_test.h"
-#include "test_src.h"
+#include "bcm2835.h"
+#include "alsadriver.h"
+//#include "alsadriver.h"
+//#include "asoundlib.h"
+
+
+
+alsadriver dacdriver;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    std::cout << test_projectLink() << std::endl;
-    testSrcHello();
+   // dacdriver.startstreaming(44100, 2, "SND_PCM_FORMAT_S16_LE");
+    dacdriver.playmusic();
+    dacdriver.checksetup();
     return 0;
 }
