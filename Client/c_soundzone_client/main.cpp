@@ -9,8 +9,8 @@
 alsadriver dacdriver;
 
 int main() {
-   // dacdriver.startstreaming(44100, 2, "SND_PCM_FORMAT_S16_LE");
-    dacdriver.playmusic();
+    dacdriver.startstreaming(44100, 2, "SND_PCM_FORMAT_S16_LE");
+    //dacdriver.playmusic();
     dacdriver.checksetup();
     return 0;
 }
