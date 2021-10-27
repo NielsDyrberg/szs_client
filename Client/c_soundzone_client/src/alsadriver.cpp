@@ -31,8 +31,9 @@ void alsadriver::CharToFormat(const char* bitformat) {
 int alsadriver::startstreaming(unsigned int sampling_rate, int channels, const char* bitformat ) {
 
     CharToFormat(bitformat);
-
-
+    char *buffer;
+    long loops;
+    int size;
 
     /* Open PCM device for playback. */
     rc = snd_pcm_open(&handle, "default",
@@ -84,11 +85,53 @@ int alsadriver::startstreaming(unsigned int sampling_rate, int channels, const c
                 snd_strerror(rc));
         exit(1);
     }
+    /* Use a buffer large enough to hold one period */
+    snd_pcm_hw_params_get_period_size(params, &frames,
+                                      &dir);
+    size = frames * 4; /* 2 bytes/sample, 2 channels */
+    buffer = (char *) malloc(size);
+
+    /* We want to loop for 5 seconds */
+    snd_pcm_hw_params_get_period_time(params,
+                                      &val, &dir);
+    /* 5 seconds in microseconds divided by
+     * period time */
+    loops = 5000000 / val;
+
+    while (loops > 0) {
+        loops--;
+        rc = read(0, buffer, size);
+        if (rc == 0) {
+            fprintf(stderr, "end of file on input\n");
+            break;
+        } else if (rc != size) {
+            fprintf(stderr,
+                    "short read: read %d bytes\n", rc);
+        }
+        rc = snd_pcm_writei(handle, buffer, frames);
+        if (rc == -EPIPE) {
+            /* EPIPE means underrun */
+            fprintf(stderr, "underrun occurred\n");
+            snd_pcm_prepare(handle);
+        } else if (rc < 0) {
+            fprintf(stderr,
+                    "error from writei: %s\n",
+                    snd_strerror(rc));
+        } else if (rc != (int) frames) {
+            fprintf(stderr,
+                    "short write, write %d frames\n", rc);
+        }
+    }
+
+    snd_pcm_drain(handle);
+    snd_pcm_close(handle);
+    free(buffer);
 
 }
 
 void alsadriver::dropplayer(){
     snd_pcm_drop(handle);
+    snd_pcm_close(handle);
 
 }
 
@@ -229,7 +272,6 @@ void alsadriver::displayformat() {
                snd_pcm_state_name((snd_pcm_state_t) val));
 
 }
-
 
 void alsadriver::playmusic() {
     long loops;

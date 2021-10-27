@@ -9,6 +9,7 @@
 class alsadriver {
 
     public:
+
         void displayformat();
         /*
          * Stops playing music and drop pending frames
@@ -16,11 +17,11 @@ class alsadriver {
         void dropplayer();
         void playmusic();
         /*
-        * This functions display the hardware setup if the alsa driver
+        * Display the hardware setup if the alsa driver
         */
         void checksetup();
         /*
-        * This functions starts playing music
+        * Starts playing music
         */
         int startstreaming(unsigned sampling_rate = 2, int channels = 44100, const char* bitformat = "SND_PCM_FORMAT_S16_LE");
 
