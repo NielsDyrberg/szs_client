@@ -1,0 +1,3 @@
+[submodule "extern/szs_soundzone_protocol"]
+	path = extern/szs_soundzone_protocol
+	url = https://github.com/NielsDyrberg/szs_soundzone_protocol
