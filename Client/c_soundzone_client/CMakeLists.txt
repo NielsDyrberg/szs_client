@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD 20) # Enable c++14 standard
 # configure a header file to pass the version number only
 configure_file(soundZoneClientConfig.h.in soundZoneClientConfig.h)
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
 # This finds the asound library
 find_library(myasoundlib asound)
 if(${myasoundlib})
@@ -17,6 +19,14 @@ if(${myasoundlib})
 else()
     message(STATUS "asound lib found as ${myasoundlib}")
 endif()
+
+find_library(cthread pthread)
+if(${cthread})
+    message(FATAL_ERROR "pthread lib not found")
+else()
+    message(STATUS "pthread lib found as ${cthread}")
+endif()
+
 
 ##########################################################################################
 ##########################################################################################
@@ -52,6 +62,6 @@ add_subdirectory(deps)
 include_directories(/usr/include/alsa/)
 
 # Link libraries to project
-target_link_libraries(${PROJECT_NAME} ${myasoundlib} BCM2835 datatransport_lib)
+target_link_libraries(${PROJECT_NAME} ${myasoundlib} ${pthread}  BCM2835 datatransport_lib)
 
 add_subdirectory(tests)
