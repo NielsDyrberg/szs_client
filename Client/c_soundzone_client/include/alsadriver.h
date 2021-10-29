@@ -10,21 +10,20 @@ class alsadriver {
 
     public:
 
-        void pauseplay(int state = 0);
+        void displayformat();
         /*
          * Stops playing music and drop pending frames
          */
         void dropplayer();
+        void playmusic();
         /*
-         * Display the hardware setup if the alsa driver
-         */
-         void checksetup();
+        * Display the hardware setup if the alsa driver
+        */
+        void checksetup();
         /*
-         * Starts playing music from FIFO buffer
-         */
-        int startstreaming(unsigned sampling_rate = 44100, int channels = 2, const char* bitformat = "SND_PCM_FORMAT_S16_LE");
-
-        int SetVolume(int volume = 50);
+        * Starts playing music
+        */
+        int startstreaming(unsigned sampling_rate = 2, int channels = 44100, const char* bitformat = "SND_PCM_FORMAT_S16_LE");
 
     private:
         // Variables used for running the alsa driver
@@ -32,9 +31,8 @@ class alsadriver {
         snd_pcm_hw_params_t *params;
         snd_pcm_t *handle;
         snd_pcm_uframes_t frames;
-        /*
-         * Converts bitformat to corresponding enum
-         */
+        int rc, dir;
+        unsigned int val, val2;
         void CharToFormat(const char* bitformat);
 
 
