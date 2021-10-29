@@ -52,6 +52,6 @@ add_subdirectory(deps)
 include_directories(/usr/include/alsa/)
 
 # Link libraries to project
-target_link_libraries(${PROJECT_NAME} ${myasoundlib} ${pthread}  BCM2835 datatransport_lib)
+target_link_libraries(${PROJECT_NAME} ${myasoundlib} BCM2835 datatransport_lib SoundZoneProtocol_lib)
 
 add_subdirectory(tests)
