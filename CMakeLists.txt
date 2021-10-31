@@ -45,8 +45,11 @@ endif()
 ###########################   Add subdirectories   #######################################
 ##########################################################################################
 
-add_subdirectory(extern/szs_soundzone_protocol)
+# Tests concerning szs client
+add_subdirectory(tests)
 
+# Externale libaries
+add_subdirectory(extern)
 
 # Adds sub directories so file name is only needed under #include  "fileName.h"
 # Link to the header files of alsa-lib
@@ -54,4 +57,5 @@ include_directories(/usr/include/alsa/)
 
 # Link libraries to project
 #target_link_libraries(${PROJECT_NAME} ${myasoundlib} BCM2835 datatransport_lib SoundZoneProtocol_lib)
-target_link_libraries(${PROJECT_NAME} ${myasoundlib} szs_soundzone_protocol)
+target_link_libraries(${PROJECT_NAME} ${myasoundlib} BCM2835 szs_soundzone_protocol)
+
