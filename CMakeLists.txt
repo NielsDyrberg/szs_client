@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16) # CMake version check
-project(soundzone_client VERSION 0.0.1) # Create project "soundzone_client"
+project(soundzone_client_lib VERSION 0.0.2) # Create project "soundzone_client_lib"
 set(CMAKE_CXX_STANDARD 20) # Enable c++14 standard
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
@@ -7,30 +7,23 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 configure_file(soundZoneClientConfig.h.in soundZoneClientConfig.h)
 
 ##########################################################################################
-##########################################################################################
+##################################  Make library  ########################################
 ##########################################################################################
 
-# Add main.cpp file of project root directory as source file
-set(${PROJECT_NAME} main.cpp)
+#Generate the static library from the library sources
+add_library(${PROJECT_NAME} INTERFACE)
 
-set(SOURCES
-        main.cpp
-        src/test_src.cpp
-        src/alsadriver.cpp
+target_include_directories(${PROJECT_NAME} INTERFACE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
         )
 
-# Add executable target with source files listed in SOURCE_FILES variable
-add_executable(${PROJECT_NAME} ${SOURCES})
-
-# Set the directories that should be included in the build command for this target
-# when running g++ these will be included as -I/directory/path/
-target_include_directories(${PROJECT_NAME}
-        PRIVATE
-        ${PROJECT_SOURCE_DIR}/include
+target_sources(${PROJECT_NAME} INTERFACE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/alsadriver.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/szs_client.cpp
         )
 
 ##########################################################################################
-##############################   Include asound   ########################################
+################################   Find asound   #########################################
 ##########################################################################################
 
 # This finds the asound library
@@ -39,6 +32,18 @@ if(${myasoundlib})
     message(FATAL_ERROR "asound lib not found")
 else()
     message(STATUS "asound lib found as ${myasoundlib}")
+endif()
+
+##########################################################################################
+################################   Find BCM2835   ########################################
+##########################################################################################
+
+# This finds the asound library
+find_library(mybcm2835 bcm2835)
+if(${mybcm2835})
+    message(FATAL_ERROR "bcm2835 lib not found")
+else()
+    message(STATUS "bcm2835 lib found as ${mybcm2835}")
 endif()
 
 ##########################################################################################
@@ -53,7 +58,26 @@ add_subdirectory(extern)
 include_directories(/usr/include/alsa/)
 
 # Link libraries to project
-target_link_libraries(${PROJECT_NAME} ${myasoundlib} BCM2835 szs_soundzone_protocol)
+target_link_libraries(${PROJECT_NAME} INTERFACE ${myasoundlib} ${mybcm2835} szs_soundzone_protocol)
+
+##########################################################################################
+########################   Make executable project   ####################################
+##########################################################################################
+
+# Add main.cpp file of project root directory as source file
+set(soundzone_client main.cpp)
+
+# Add executable target with source files listed in SOURCE_FILES variable
+add_executable(soundzone_client ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+
+# Set the directories that should be included in the build command for this target
+# when running g++ these will be included as -I/directory/path/
+# Link libraries to project
+target_link_libraries(soundzone_client soundzone_client_lib)
+
+##########################################################################################
+##################################  Add tests  ###########################################
+##########################################################################################
 
 # Tests concerning szs client
 add_subdirectory(tests)
