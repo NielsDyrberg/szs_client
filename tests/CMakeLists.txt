@@ -1,2 +1,2 @@
 
-add_subdirectory(test_project)
+add_subdirectory(test_recv_packet)

@@ -18,9 +18,23 @@ target_include_directories(${PROJECT_NAME} INTERFACE
         )
 
 target_sources(${PROJECT_NAME} INTERFACE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/alsadriver.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/szs_client.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/alsadriver.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/dummy_alsa_driver.cpp
         )
+
+##########################################################################################
+################################   Find pthread   ########################################
+##########################################################################################
+
+# This finds the pthread library
+find_library(mypthreadlib pthread)
+if(${mypthreadlib})
+    message(FATAL_ERROR "pthread lib not found")
+else()
+    message(STATUS "pthread lib found as ${mypthreadlib}")
+endif()
+
 
 ##########################################################################################
 ################################   Find asound   #########################################
@@ -58,7 +72,7 @@ add_subdirectory(extern)
 include_directories(/usr/include/alsa/)
 
 # Link libraries to project
-target_link_libraries(${PROJECT_NAME} INTERFACE ${myasoundlib} ${mybcm2835} szs_soundzone_protocol)
+target_link_libraries(${PROJECT_NAME} INTERFACE ${myasoundlib} ${mybcm2835} ${mypthreadlib} szs_soundzone_protocol)
 
 ##########################################################################################
 ########################   Make executable project   ####################################
