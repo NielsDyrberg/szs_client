@@ -4,7 +4,6 @@
 #ifndef C_SOUNDZONE_CLIENT_ALSADRIVER_H
 #define C_SOUNDZONE_CLIENT_ALSADRIVER_H
 #include "alsa/asoundlib.h"
-#include "alsadriver.h"
 
 class alsadriver {
 

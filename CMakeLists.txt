@@ -21,6 +21,7 @@ target_sources(${PROJECT_NAME} INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}/src/szs_client.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/alsadriver.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/dummy_alsa_driver.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/sync_handler.cpp
         )
 
 ##########################################################################################
