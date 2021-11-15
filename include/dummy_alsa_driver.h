@@ -18,8 +18,6 @@ private:
     buffer_t* p_buffer;
     char* fifo_name;
     int fd;
-
-
 };
 
 #endif //SOUNDZONE_CLIENT_DUMMY_ALSA_DRIVER_H

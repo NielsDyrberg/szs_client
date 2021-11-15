@@ -1,7 +1,7 @@
-#include <iostream>
-#include "sound_zone_protocol.h"
+#include "szs_client.h"
 
 int main() {
-    std::cout << "Hello world, from main!" << std::endl;
+    SZS_client client;
+    client.run();
     return 0;
 }
