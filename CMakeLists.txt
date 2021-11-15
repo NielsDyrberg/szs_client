@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16) # CMake version check
-project(soundzone_client_lib VERSION 0.0.2) # Create project "soundzone_client_lib"
+project(soundzone_client_lib VERSION 0.0.3) # Create project "soundzone_client_lib"
 set(CMAKE_CXX_STANDARD 20) # Enable c++14 standard
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
