@@ -66,7 +66,6 @@ void SZS_client::szp_receive(SZP_slave* szp) {
     int err;
     while (true){
         err = szp->recieve();
-
         if(err < 0){
             return;
         }
