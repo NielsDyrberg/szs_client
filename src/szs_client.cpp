@@ -11,40 +11,46 @@
 #include <cerrno>
 #include <fcntl.h>
 #include <thread>
-
 #include "szs_client.h"
+#include "alsadriver.h"
+
+using namespace std;
 
 /**********************************************************************************************************************
  * Public methods
  **********************************************************************************************************************/
 
 SZS_client::SZS_client(){
-    char fifo_file[] = "/tmp/music_fifo";
+    char* fifo_file = "/tmp/rcv_file.wav";
 
-    if(mkfifo(fifo_file, 0777) < 0){
-        if(errno != EEXIST){
-            std::cout << "Could not create fifo file" << std::endl;
-        }else{
-            std::cout << "Fifo is made" << std::endl;
-        }
-    }
+//    if(mkfifo(fifo_file, 0777) < 0){
+//        if(errno != EEXIST){
+//            cout << "Could not create fifo file" << std::endl;
+//        }else{
+//            cout << "Fifo is made" << std::endl;
+//        }
+//    }
 
     szp = new SZP_slave(fifo_file);
-    alsa = new dummy_alsa_driver(fifo_file);
+    alsa = new alsadriver();
     sync = new SYNC_handler();
 
-    std::thread t_szp(&SZP_slave::open_fifo, szp);
-    std::thread t_alsa(&dummy_alsa_driver::open_fifo, alsa);
+    thread t_szp(&SZP_slave::open_fifo, szp);
+
+    alsa->readbuffer = fifo_file;
 
     t_szp.join();
-    t_alsa.join();
+
 };
 
 int SZS_client::run() {
 
-    std::thread t_szp(szp_receive, this->szp);
-    std::thread t_alsa(alsa_play, this->alsa);
-    std::thread t_sync(run_sync_handler, this->sync);
+    thread t_szp(szp_receive, this->szp);
+    thread t_alsa(&alsadriver::startstreaming, alsa, 44100, 2, "SND_PCM_FORMAT_S16_LE");
+    thread t_sync(run_sync_handler, this->sync);
+    sleep(10);
+    alsa->run_on = true;
+
 
     if (t_szp.joinable()){
         t_szp.join();
@@ -72,16 +78,6 @@ void SZS_client::szp_receive(SZP_slave* szp) {
     }
 }
 
-void SZS_client::alsa_play(dummy_alsa_driver *alsa) {
-    int err;
-    while (true){
-        err = alsa->read_buffer();
-
-        if(err < 0){
-            return;
-        }
-    }
-}
 
 void SZS_client::run_sync_handler(SYNC_handler* sync_handler){
     sync_handler->run();
