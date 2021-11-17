@@ -29,9 +29,9 @@ SZS_client::SZS_client(){
         }
     }
 
+    sync = new SYNC_handler();
     szp = new SZP_slave(fifo_file);
     alsa = new dummy_alsa_driver(fifo_file);
-    sync = new SYNC_handler();
 
     std::thread t_szp(&SZP_slave::open_fifo, szp);
     std::thread t_alsa(&dummy_alsa_driver::open_fifo, alsa);
