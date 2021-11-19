@@ -12,8 +12,6 @@ class SYNC_handler{
 public:
     SYNC_handler();
     int run();
-    int pinTest();
-    int bcmSetup();
 
 private:
     Sync_Slave slaveSync;
