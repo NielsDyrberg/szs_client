@@ -10,8 +10,8 @@
 class dummy_alsa_driver{
 public:
     explicit dummy_alsa_driver(char* fifo_name);
+    ~dummy_alsa_driver();
     int open_fifo();
-
     int read_buffer() const;
 
 private:

@@ -9,12 +9,6 @@ class alsadriver {
 
     public:
 
-        void displayformat();
-        /*
-         * Stops playing music and drop pending frames
-         */
-        void dropplayer();
-        void playmusic();
         /*
         * Display the hardware setup if the alsa driver
         */
@@ -22,7 +16,15 @@ class alsadriver {
         /*
         * Starts playing music
         */
-        int startstreaming(unsigned sampling_rate = 2, int channels = 44100, const char* bitformat = "SND_PCM_FORMAT_S16_LE");
+        void startstreaming(unsigned sampling_rate = 2, int channels = 44100, const char* bitformat = "SND_PCM_FORMAT_S16_LE");
+        /*
+        * Start/stops reading from buffer
+        */
+        bool run_on = false;
+        /*
+        * Char holding the location of the file to be read
+        */
+        char* readbuffer; //"/home/pi/download/epic_sax_guy.raw";
 
     private:
         // Variables used for running the alsa driver
@@ -32,7 +34,13 @@ class alsadriver {
         snd_pcm_uframes_t frames;
         int rc, dir;
         unsigned int val, val2;
+
+
+        /*
+        * Convertes format to enum
+        */
         void CharToFormat(const char* bitformat);
+
 
 
 
