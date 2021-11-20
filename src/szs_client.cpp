@@ -31,6 +31,7 @@ SZS_client::SZS_client(){
 //        }
 //    }
 
+    sync = new SYNC_handler();
     szp = new SZP_slave(fifo_file);
     alsa = new alsadriver();
     sync = new SYNC_handler();
