@@ -34,10 +34,12 @@ int SYNC_handler::run(){
     return 0;
 }
 
+/**
+ * @brief Hangs until current time i larger than #time_to_play
+ * @param time_to_return The time when the function should return.
+ */
+void SYNC_handler::return_when(long long time_to_return) {
+    std::cout << "Current time: " << slaveSync.adjustClock(slaveSync.clockOffset())<< std::endl;
+    while (slaveSync.adjustClock(slaveSync.clockOffset()) < time_to_return);
 
-
-
-
-
-
-
+}

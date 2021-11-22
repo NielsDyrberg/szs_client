@@ -17,6 +17,7 @@ private:
 
     static void szp_receive(SZP_slave* szp);
     static void run_sync_handler(SYNC_handler* sync_handler);
+    static void play_music_when_ready(SYNC_handler* sync_handler, alsadriver* alsa_obj, SZP_slave* szp);
 protected:
 
 public:
