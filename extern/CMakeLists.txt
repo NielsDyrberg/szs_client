@@ -1,3 +1,4 @@
 
 
 add_subdirectory(szs_soundzone_protocol)
+add_subdirectory(szs_time_sync)

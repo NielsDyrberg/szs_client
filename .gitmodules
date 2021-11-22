@@ -1,3 +1,6 @@
 [submodule "extern/szs_soundzone_protocol"]
 	path = extern/szs_soundzone_protocol
 	url = https://github.com/NielsDyrberg/szs_soundzone_protocol
+[submodule "extern/szs_time_sync"]
+	path = extern/szs_time_sync
+	url = https://github.com/NielsDyrberg/szs_time_sync.git

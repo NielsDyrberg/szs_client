@@ -1,3 +1,3 @@
 
-add_subdirectory(test_recv_packet)
+#add_subdirectory(test_recv_packet)
 add_subdirectory(test_clients)

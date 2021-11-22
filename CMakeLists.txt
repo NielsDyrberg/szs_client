@@ -73,7 +73,7 @@ add_subdirectory(extern)
 include_directories(/usr/include/alsa/)
 
 # Link libraries to project
-target_link_libraries(${PROJECT_NAME} INTERFACE ${myasoundlib} ${mybcm2835} ${mypthreadlib} szs_soundzone_protocol)
+target_link_libraries(${PROJECT_NAME} INTERFACE ${myasoundlib} ${mybcm2835} ${mypthreadlib} szs_soundzone_protocol szs_time_sync)
 
 ##########################################################################################
 ########################   Make executable project   ####################################
