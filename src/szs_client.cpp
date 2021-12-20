@@ -78,7 +78,6 @@ void SZS_client::szp_receive(SZP_slave* szp) {
     }
 }
 
-
 void SZS_client::run_sync_handler(SYNC_handler* sync_handler){
     sync_handler->run();
 }
