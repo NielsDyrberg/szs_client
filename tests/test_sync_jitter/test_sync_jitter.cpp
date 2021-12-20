@@ -6,7 +6,8 @@
 #include "sync_handler.h"
 #include <bcm2835.h>
 #define PIN1  RPI_V2_GPIO_P1_40 // Define output pin
-
+#define ON 2400
+#define OFF 30000
 int test_recv_packet(){
     SZS_client client;
 
@@ -25,6 +26,7 @@ int main(){
     bcm2835_gpio_fsel(PIN1, BCM2835_GPIO_FSEL_OUTP);
     bcm2835_gpio_write(PIN1, LOW);
     SYNC_handler s;
+	s.slaveSync.Set_RTT_Filter(OFF)
     for(int i=0; i < 10;i++){
     s.run();
         adjtime = s.slaveSync.clockOffset();
