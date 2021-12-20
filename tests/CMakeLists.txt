@@ -1,3 +1,4 @@
 
 #add_subdirectory(test_recv_packet)
-add_subdirectory(test_clients)
+add_subdirectory(test_sync_jitter)
+add_subdirectory(test_sync_timeOfSync)
